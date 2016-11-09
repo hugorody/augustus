@@ -1,4 +1,5 @@
 #read NCBI IDs in a BLAST result file, formatted with outfmt 6, and captures PDB information about the reference sequence
+# awk '$3>40' = minimum percent identity in blast
 
 cat "$1" | awk '$3>40' | awk {'print $2'} | sed 's/^gi|.*|.*|\(.*\)|[A-Z]/\1/g' | while read line
 do
