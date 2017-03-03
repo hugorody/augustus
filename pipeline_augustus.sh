@@ -3,7 +3,7 @@ echo "FASTA file for prediction:"; read fastafile
 echo "List of Hints files:"; read hintsfiles
 
 ########################################################################
-#run augustus gene prediction
+#run augustus gene prediction in parallel. One job for each hintfile being used
 runaugustus()
 {
 augustus --species="$line" --gff3=on --cds=on "$fastafile" > augustus_"$idrun".gff3
