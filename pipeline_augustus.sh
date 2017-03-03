@@ -3,7 +3,7 @@ echo "FASTA file for prediction:"; read fastafile
 echo "List of Hints files:"; read hintsfiles
 
 ########################################################################
-#run augustus gene prediction in parallel. One job for each hintfile being used
+#run augustus gene prediction
 runaugustus()
 {
 augustus --species="$line" --gff3=on --cds=on "$fastafile" > augustus_"$idrun".gff3
@@ -54,6 +54,25 @@ cat *.overlap | awk '$3="gene"' | awk '$12="gene"' | awk '$9!=$18' | sed '/cds/d
 rm "$name"*.overlap
 
 
+
+#generates FASTA for each gff3
+
+for i in *.gff3
+do
+
+name=`echo "$i" | sed "s/.gff3//g"`
+idge=`echo "$name" | sed "s/.*augustus_//g"`
+
+echo "Generating FASTA for $name for $idge"
+
+cat "$i" | grep "#" | sed '/end/d' | sed 's/###/\n/g' | sed "s/# start gene />$idge/g" | sed 's/# protein sequence = \[//g' | sed 's/# //g' | sed 's/\]//g' | sed '/#/d' | sed '/--/d' | sed '/dicted/d' | sed '/(/d' | awk 'NR>8' | sed "/^$/d"> "$name".fasta
+
+done
+
+
+cat *.fasta > augustus.fasta
+
+
 #Convert Overlap2 to Overlap3
 #input: *.overlap2
 #output: *.overlap3
@@ -70,4 +89,4 @@ python myoverlap.py augustus.overlap2 > augustus.overlap3
 
 cat *.gff3 > gffmaster.gff
 
-python overlap6.py gffmaster.gff augustus.overlap3 > augustus_finaloverlap.gff
+python overlap6.py gffmaster.gff augustus.overlap3 augustus.fasta > overlap6.gff
