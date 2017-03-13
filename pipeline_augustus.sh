@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "FASTA file for prediction:"; read fastafile
-echo "List of Hints files:"; read hintsfiles
+echo "List of species to use:"; read hintsfiles
 
 ########################################################################
 #run augustus gene prediction
