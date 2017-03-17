@@ -82,14 +82,7 @@ rm *.aa
 #output: *.overlap3
 #description: Olverlap3 is a file where each line correspond to overlaps of all 25 files against each of 25 files.
 
-
 python myoverlap.py augustus.overlap2 > augustus.overlap3
-
-#prepara o arquivo
-sed -i "s/\[//g" augustus.overlap3
-sed -i "s/\]//g" augustus.overlap3
-sed -i "s/'//g" augustus.overlap3
-sed -i "s/,//g" augustus.overlap3
 
 #Convert GFF master and wholeoverlap5 to final file overlap6
 #input: GFF master (join all the 25 augustus gff files) and wholeoverlap5.txt
