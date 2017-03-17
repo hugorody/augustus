@@ -29,7 +29,6 @@ for line in setoverlap:
 	else:
 		mydictonezero[id_gene1] = [id_gene2]
 
-
 mydictone = dict()
 num1 = 0
 
@@ -98,4 +97,4 @@ for i in mylist:                                                        #para ca
 		
 		
 for line1 in mydicttwo.values():
-	print line1                                                         #imprime resultado
+	print " ".join(line1)                                               #imprime resultado
